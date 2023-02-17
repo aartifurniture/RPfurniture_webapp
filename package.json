@@ -1,5 +1,5 @@
 {
-  "name": "viitintern_web",
+  "name": "rp_furniture",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.9",
     "@next/font": "13.1.6",
+    "material-ui-chip-input": "^2.0.0-beta.2",
+    "material-ui-dropzone": "^3.5.0",
+    "mui-chips-input": "^2.0.0",
     "next": "13.1.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-drag-drop-files": "^2.3.8",
+    "react-dropzone": "^14.2.3"
   }
 }

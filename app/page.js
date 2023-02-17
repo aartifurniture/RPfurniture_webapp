@@ -1,91 +1,168 @@
-import Image from 'next/image'
+"use client"
+
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 
-const inter = Inter({ subsets: ['latin'] })
+import Button from '@mui/material/Button';
+import { useState } from "react";
+import ChipInput from 'material-ui-chip-input';
+import React from 'react'
+import { DropzoneArea } from 'material-ui-dropzone'
+
+const categoryOptions = [
+  {value: 'chair', label: "Chair"}, 
+  {value: 'table', label: "Table"}, 
+  {value: 'cupboard', label: "Cupboard"}, 
+  {value: 'sofa', label: "Sofa"},
+];
 
 export default function Home() {
+
+  const [file, setFile] = useState(null);
+  const [category, setCategory] = useState('')
+  const handleChange = file => {
+    setFile(file);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Box
+      m={2}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+    >
+     
+    <Grid 
+      container
+      spacing={4}
+      sx={{
+        marginTop: 8,
+        pt: 2, pb: 2,
+        mt: 2, mb: 2,
+        width: {
+          xs: 9/10,
+          sm: 7/10,
+          md: 1/2,
+          lg: 1/2,
+          xl: 1/2,
+        },
+      }}
+    >
+        <Grid item xs={12} sm={12} md={12}>
+          <h1 style={{textAlign: 'center'}}>Add Category</h1>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={6}>
+          <TextField 
+            id="product_name" 
+            label="Name of Product" 
+            variant="outlined"
+            inputProps={{
+              style: {
+                height: "23px",
+              },
+            }}
+            fullWidth 
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={6}>
+          <TextField
+            id="category"
+            label="Category"
+            select
+            onChange={(e) => {
+              setCategory(e.target.value)
+            }}
+            value={category}
+            fullWidth 
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+            {categoryOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+
+        <Grid item xs={6} sm={3} md={3}>
+          <TextField
+            id="quantity"
+            label="Quantity"
+            type="number"
+            fullWidth
+          />
+        </Grid>
+
+        <Grid item xs={6} sm={3} md={3}>
+          <TextField
+            id="price"
+            label="Price"
+            type="number"
+            fullWidth
+          />
+        </Grid>
+
+
+
+
+        <Grid item xs={12} sm={6} md={6}>
+          <Box>
+            <DropzoneArea 
+              onChange={(file)=> {
+                console.log("Successful upload, File: ", file)
+              }}
+              acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+              dropzoneText={"Drag and drop or browse"}
             />
-          </a>
-        </div>
-      </div>
+          </Box>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
+        </Grid>
 
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+
+        <Grid item xs={12} sm={12} md={12}>
+          <ChipInput
+            defaultValue={[]}
+            fullWidth
+            label='tags'
+            placeholder='Enter some tags'
+            variant="outlined" 
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={12}>
+          <TextField
+            id="multiline-description"
+            label="Description"
+            multiline
+            rows={4}
+            fullWidth
+          />
+        </Grid>
+
+        
+        <Grid item 
+          xs={12} sm={12} md={12} 
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
         >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <Button variant="outlined" href="/">
+            Clear
+          </Button>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <Button variant="contained" color="success" href="/">
+            Submit
+          </Button>
+        </Grid>
+        
+      </Grid>    
+    </Box>
   )
 }
